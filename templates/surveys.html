@@ -1,0 +1,10 @@
+{% extends '_base.html' %}
+
+{% block title %}Manage your Surveys{% endblock title %}
+
+{% block content %}
+<h1>Hello {{ user.email }}!</h1>
+<a href="#">Create a survey</a>
+<h2>Your Surveys</h2>
+<a href="{% url 'logout' %}">Log Out</a>
+{% endblock content %}

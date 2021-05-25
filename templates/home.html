@@ -4,5 +4,13 @@
 
 {% block content %}
 <h1>My Survey App</h1>
-<p>Words and stuff</>
+<h2>Words and stuff</h2>
+{% if user.is_authenticated %}
+<p>Hi {{ user.email }}!</p>
+<a href="{% url 'surveys' %}">CLick here to create a survey</a> or to <a href="{% url 'logout' %}">Log Out</a>
+{% else %}
+<p>Hi! You need to be logged in ton create a survey</p>
+<a href="{% url 'login' %}">Log In</a> or
+<a href="{% url 'signup' %}">Sign Up</a>
+{% endif %}
 {% endblock content %}
