@@ -8,11 +8,10 @@
 <h2>Words and stuff</h2>
 {% if user.is_authenticated %}
 <p>Hi {{ user.email }}!</p>
-<form method="post" action="{% url 'surveys' %}">
-	{% csrf_token %}
-	{{ form|crispy }}
-	<button class="btn btn-primary" type="submit">Create a survey</button>
-</form>
+<form method="get" action="{% url 'surveys' %}">
+	      {% csrf_token %}
+	      {{ form|crispy }}
+<button class="btn btn-primary" type="submit">Create a survey</button>
 	or
 	<p><a href="{% url 'account_logout' %}">Log Out</a></p>
 {% else %}
