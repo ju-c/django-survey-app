@@ -22,15 +22,12 @@
             <tr>
                 <td>{{ survey.title }}</td>
                 <td>
-                    {% if survey.is_active %}
                     <a href="{% url 'survey-detail' survey.pk %}">
-                        <div class="ui button">view</div>
+                        <div class="btn btn-primary">view</div>
                     </a>
-                    {% else %}
                     <a href="{% url 'survey-edit' survey.pk %}">
-                        <div class="ui button">edit</div>
+                        <div class="btn btn-warning">edit</div>
                     </a>
-                    {% endif %}
                     <form method="post" action="{% url 'survey-delete' survey.pk %}" style="display: inline-block;">
                         {% csrf_token %}
                         <button class="btn btn-danger">delete</button>
