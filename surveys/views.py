@@ -24,7 +24,7 @@ def survey_detail(request, pk):
     """User can view an active survey"""
     try:
         survey = Survey.objects.prefetch_related("question_set__option_set").get(
-            pk=pk, creator=request.user, is_active=True
+            pk=pk, creator=request.user
         )
     except Survey.DoesNotExist:
         raise Http404()
@@ -70,7 +70,7 @@ def survey_create(request):
     else:
         form = SurveyForm()
 
-    return render(request, "survey/create.html", {"form": form})
+    return render(request, "surveys/create.html", {"form": form})
 
 
 @login_required
@@ -88,13 +88,12 @@ def survey_edit(request, pk):
     """User can add questions to a draft survey, then acitvate the survey"""
     try:
         survey = Survey.objects.prefetch_related("question_set__option_set").get(
-            pk=pk, creator=request.user, is_active=False
+            pk=pk, creator=request.user
         )
     except Survey.DoesNotExist:
         raise Http404()
 
     if request.method == "POST":
-        survey.is_active = True
         survey.save()
         return redirect("survey-detail", pk=pk)
     else:
