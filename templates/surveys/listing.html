@@ -1,11 +1,11 @@
 {% extends '_base.html' %}
 
 {% block title %}Your surveys{% endblock title %}
-
 {% block content %}
+{% include 'navbar.html' %}
 <div align="center">
 	<h1>Hi {{ request.user.email }}</h1>
-	<a href="{% url 'survey-add' %}">Create a new survey</a>
+	<a href="{% url 'survey-add' %}"><div class="btn btn-success">Create a new survey</div></a>
 </div>
 <div class="ui center aligned basic very padded segment">
     {% if surveys %}
@@ -23,11 +23,9 @@
                 <td>{{ survey.title }}</td>
                 <td>
                     <a href="{% url 'survey-detail' survey.pk %}">
-                        <div class="btn btn-primary">view</div>
-                    </a>
+                        <div class="btn btn-primary">view</div></a>
                     <a href="{% url 'survey-edit' survey.pk %}">
-                        <div class="btn btn-warning">edit</div>
-                    </a>
+                        <div class="btn btn-warning">edit</div></a>
                     <form method="post" action="{% url 'survey-delete' survey.pk %}" style="display: inline-block;">
                         {% csrf_token %}
                         <button class="btn btn-danger">delete</button>

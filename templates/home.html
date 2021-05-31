@@ -14,8 +14,9 @@
 	<p><a href="{% url 'account_logout' %}">Log Out</a></p>
 {% else %}
 <p>Hi! You need to be logged in to create a survey</p>
-<a href="{% url 'account_login' %}">Log In</a> or
-<a href="{% url 'account_signup' %}">Sign Up</a>
+<a href="{% url 'account_login' %}"><div class="btn btn-success">Log In</div></a> or
+<a href="{% url 'account_signup' %}"><div class="btn btn-primary">Sign Up</div>
+</a>
 {% endif %}
 </div>
 {% endblock content %}

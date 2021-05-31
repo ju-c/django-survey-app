@@ -3,14 +3,25 @@
 {% block title %}{{ survey.title }}{% endblock title %}
 
 {% block content %}
+{% include 'navbar.html' %}
 <div>
 	<h1>{{survey.title}}</h1>
-<p>Created : {{ survey.created_at }}</p>
-<p>Url: {{ survey.get_absolute_url }}</p>
+<p>Url: <a href="{{public_url}}">{{ public_url }}</a></p>
 <ul>
-{% for question in survey.questions.all %}
-<li>{{ question }}</li>
-{% endfor %}
-</ul>
+{% for question in questions %}
+    <div class="ui basic padded segment left aligned">
+        <h4 class="ui header">
+            Question {{ forloop.counter }} / {{ questions|length }}: {{ question.quest }}
+        </h4>
+        <ul>
+            {% for option in question.option_set.all %}
+            <li>
+                {{ forloop.counter }}) {{option.choice}}: {{ option.percent|floatformat }}%
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
+ <a href="{% url 'survey-list' %}"><div class="btn btn-light">Back</div></a>
 </div>
 {% endblock content %}

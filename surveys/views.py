@@ -47,7 +47,7 @@ def survey_detail(request, pk):
     num_submissions = survey.submission_set.filter(is_complete=True).count()
     return render(
         request,
-        "survey/detail.html",
+        "surveys/survey_detail.html",
         {
             "survey": survey,
             "public_url": public_url,
@@ -98,7 +98,7 @@ def survey_edit(request, pk):
         return redirect("survey-detail", pk=pk)
     else:
         questions = survey.question_set.all()
-        return render(request, "survey/edit.html", {"survey": survey, "questions": questions})
+        return render(request, "surveys/edit.html", {"survey": survey, "questions": questions})
 
 
 @login_required
@@ -111,11 +111,11 @@ def question_create(request, pk):
             question = form.save(commit=False)
             question.survey = survey
             question.save()
-            return redirect("survey-option-create", survey_pk=pk, question_pk=question.pk)
+            return redirect("option-create", survey_pk=pk, question_pk=question.pk)
     else:
         form = QuestionForm()
 
-    return render(request, "survey/question.html", {"survey": survey, "form": form})
+    return render(request, "surveys/question.html", {"survey": survey, "form": form})
 
 
 @login_required
@@ -135,7 +135,7 @@ def option_create(request, survey_pk, question_pk):
     options = question.option_set.all()
     return render(
         request,
-        "survey/options.html",
+        "surveys/options.html",
         {"survey": survey, "question": question, "options": options, "form": form},
     )
 
@@ -187,7 +187,7 @@ def survey_submit(request, survey_pk, sub_pk):
     question_forms = zip(questions, formset)
     return render(
         request,
-        "survey/submit.html",
+        "surveys/submit.html",
         {"survey": survey, "question_forms": question_forms, "formset": formset},
     )
 
@@ -195,5 +195,5 @@ def survey_submit(request, survey_pk, sub_pk):
 def survey_thanks(request, pk):
     """Survey-taker receives a thank-you message."""
     survey = get_object_or_404(Survey, pk=pk, is_active=True)
-    return render(request, "survey/thanks.html", {"survey": survey})
+    return render(request, "surveys/thanks.html", {"survey": survey})
 
