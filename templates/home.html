@@ -4,19 +4,18 @@
 {%block title%}My Survey App{% endblock title %}
 
 {% block content %}
-<h1>My Survey App</h1>
-<h2>Words and stuff</h2>
+<h1 class="text-center">My Survey App <br>
+<small class="subtitle">Words and stuff</small></h1>
+<div align="center">
 {% if user.is_authenticated %}
 <p>Hi {{ user.email }}!</p>
-<form method="get" action="{% url 'surveys' %}">
-	      {% csrf_token %}
-	      {{ form|crispy }}
-<button class="btn btn-primary" type="submit">Create a survey</button>
-	or
+<a href="{% url 'survey-add' %}">Create a survey</a>
+<br>	or
 	<p><a href="{% url 'account_logout' %}">Log Out</a></p>
 {% else %}
-<p>Hi! You need to be logged in ton create a survey</p>
+<p>Hi! You need to be logged in to create a survey</p>
 <a href="{% url 'account_login' %}">Log In</a> or
 <a href="{% url 'account_signup' %}">Sign Up</a>
 {% endif %}
+</div>
 {% endblock content %}

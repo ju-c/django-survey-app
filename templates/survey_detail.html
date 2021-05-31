@@ -1,0 +1,16 @@
+{% extends '_base.html' %}
+
+{% block title %}{{ survey.title }}{% endblock title %}
+
+{% block content %}
+<div>
+	<h1>{{survey.title}}</h1>
+<p>Created : {{ survey.created_at }}</p>
+<p>Url: {{ survey.get_absolute_url }}</p>
+<ul>
+{% for question in survey.questions.all %}
+<li>{{ question }}</li>
+{% endfor %}
+</ul>
+</div>
+{% endblock content %}

@@ -1,0 +1,12 @@
+{% extends '_base.html' %}
+
+{% block title %}Edit Survey{% endblock title %}
+
+{%block content%}
+<h1>Add Questions</h1>
+<form action="" method"post">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<button class="btn btn-success" type="submit">Add Question</button>
+</form>
+{% endblock %}

@@ -5,12 +5,13 @@
 
 {% block content %}
 <h1>Hello {{ user.email }}!</h1>
-<form method="post" action="#"
+<form method="POST" action="{% url 'survey_add' %}">
 		    {% csrf_token %}
 		    {{ form|crispy }}
 		    <button class=" btn btn-primary" type="submit">Create a survey</button>
 </form>
 <h2>Your Surveys</h2>
+{{ survey.user }}
 <form method="get" action="{% url 'account_logout' %}"
 	      {% csrf_token %}
 	      {{ form|crispy }}
