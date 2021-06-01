@@ -1,37 +1,34 @@
-{% extends "_base.html" %}
-{% block title %}Submit - Surveys{% endblock %}
+{% extends '_base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}Submit{% endblock title %}
 
 {% block content %}
-<style>
-    form .field ul {
-        list-style: none;
-        padding: 0 1rem;
-    }
 
-    form .field li {
-        margin-bottom: 0.3rem;
-    }
-</style>
-<div class="ui center aligned basic very padded segment">
-    <h1 class="ui header dividing">Your answers to {{ survey.title }}</h1>
-    <form method="post" novalidate>
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+
+<main class="px-3">
+    <h1>Your answers to {{ survey.title }}</h1>
+    <p class="lead">
+      <form method="post" novalidate>
         {% csrf_token %}
         {{ formset.management_form }}
         {% for question, form in question_forms %}
-        <div class="ui basic padded segment left aligned">
-            <div class="ui form {% if form.errors %}error{% endif %}">
-                <h4 class="ui header">
-                    Question {{ forloop.counter }}: {{ question.quest }}
-                </h4>
+		<div class="ui basic padded segment left aligned">
+		<h4 class="ui header">
+             Question {{ forloop.counter }}: {{ question.quest }}
+        </h4>
                 {% for field in form %}
-                <div class="field {% if field.errors %}error{% endif %}">
-                    {{ field }}
-                </div>
-                {% endfor %}
-        </div>
-        {% endfor %}
-        <button type="submit" class="btn btn-success">Submit</button>
+		<div>
+				{{ field }}
+		</div>
+		{% endfor %}
+		</div>
+		{% endfor %}
+		<button type="submit" class="btn btn-success">Submit</button>
     </form>
-
-</div>
+    </p>
+  </main>
 {% endblock %}
+

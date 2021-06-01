@@ -1,9 +1,15 @@
-{% extends "_base.html" %}
-{% block title %}Thanks - Surveys{% endblock %}
+{% extends '_base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}{{ survey.title }}{% endblock title %}
 
 {% block content %}
-<div class="ui center aligned basic very padded segment">
-    <h1 class="ui header">Your responses to the survey "{{ survey.title }}" have been submitted!
-    </h1>
-</div>
+
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  <main class="px-3">
+    <h1>Thanks!</h1>
+    <p class="lead">Your responses to the survey "{{ survey.title }}" have been submitted!</p>
+</main>
 {% endblock %}
+
