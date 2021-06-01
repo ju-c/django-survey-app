@@ -26,19 +26,6 @@
             </div>
             {% endfor %}
             <button type="submit" class="btn btn-primary">Add new option</button>
-            <div class="ui message error">
-                <div class="header">We had some issues</div>
-                <ul class="list">
-                    {% for field in form %}
-                    {% for error in field.errors %}
-                    <li>{{ field.label_tag }} {{ error }}</li>
-                    {% endfor %}
-                    {% endfor %}
-                    {% for error in form.non_field_errors %}
-                    <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
         </form>
         {% if options|length > 0 %}
         <div class="ui divider"></div>

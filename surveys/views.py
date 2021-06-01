@@ -142,19 +142,19 @@ def option_create(request, survey_pk, question_pk):
 
 def survey_start(request, pk):
     """Survey-taker can start a survey"""
-    survey = get_object_or_404(Survey, pk=pk, is_active=True)
-    if request.method == "POST":
+    survey = get_object_or_404(Survey, pk=pk)
+    if request.method == 'POST':
         sub = Submission.objects.create(survey=survey)
-        return redirect("survey-submit", survey_pk=pk, sub_pk=sub.pk)
+        return redirect('survey-submit', survey_pk=pk, sub_pk=sub.pk)
 
-    return render(request, "survey/start.html", {"survey": survey})
+    return render(request, "surveys/start.html", {"survey": survey})
 
 
 def survey_submit(request, survey_pk, sub_pk):
     """Survey-taker submit their completed survey."""
     try:
         survey = Survey.objects.prefetch_related("question_set__option_set").get(
-            pk=survey_pk, is_active=True
+            pk=survey_pk
         )
     except Survey.DoesNotExist:
         raise Http404()
