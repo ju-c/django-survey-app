@@ -1,26 +1,32 @@
 {% extends '_base.html' %}
+{% load crispy_forms_tags %}
 
-{% block title %}Your surveys{% endblock title %}
+
+{% block title %}Your Surveys{% endblock title %}
+
 {% block content %}
+
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
 {% include 'navbar.html' %}
-<div align="center">
-	<h1>Hi {{ request.user.email }}</h1>
-	<a href="{% url 'survey-add' %}"><div class="btn btn-success">Create a new survey</div></a>
-</div>
-<div class="ui center aligned basic very padded segment">
-    {% if surveys %}
-    <h2 class="ui header">Your surveys</h2>
+  <main class="px-3">
+    <h1>Hi {{ request.user.email }}</h1>
+    <p class="lead">
+    <a href="{% url 'survey-add' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Create a new survey</a></p>
+	
+	{% if surveys %}
+<h2 class="ui header">Your surveys</h2>
+  </p>
     <table class="ui celled table">
         <thead>
             <tr>
-                <th>Title</th>
-                <th>Actions</th>
+                <th><h2 class="ui header text-white">Title</h2></th>
+                <th><h2 class="ui header text-white">Actions</h2></th>
             </tr>
         </thead>
         <tbody>
             {% for survey in surveys %}
             <tr>
-                <td>{{ survey.title }}</td>
+                <td class="text-white">{{ survey.title }}</td>
                 <td>
                     <a href="{% url 'survey-detail' survey.pk %}">
                         <div class="btn btn-primary">view</div></a>
@@ -35,11 +41,12 @@
             {% endfor %}
         </tbody>
     </table>
+ 
     {% else %}
     <h2 class="ui header">Your surveys
         <div class="sub header">You don't have any surveys yet, try creating one first.</div>
     </h2>
     {% endif %}
+  </main>
+{%endblock content %}
 
-</div>
-{% endblock %}

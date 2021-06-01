@@ -1,22 +1,18 @@
 {% extends '_base.html' %}
-{% load crispy_forms_tags %}
-
-{%block title%}My Survey App{% endblock title %}
-
+{% block title %}Survey App{% endblock title %}
 {% block content %}
-<h1 class="text-center">My Survey App <br>
-<small class="subtitle">Words and stuff</small></h1>
-<div align="center">
-{% if user.is_authenticated %}
-<p>Hi {{ user.email }}!</p>
-<a href="{% url 'survey-add' %}">Create a survey</a>
-<br>	or
-	<p><a href="{% url 'account_logout' %}">Log Out</a></p>
-{% else %}
-<p>Hi! You need to be logged in to create a survey</p>
-<a href="{% url 'account_login' %}"><div class="btn btn-success">Log In</div></a> or
-<a href="{% url 'account_signup' %}"><div class="btn btn-primary">Sign Up</div>
-</a>
-{% endif %}
-</div>
-{% endblock content %}
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+
+  <main class="px-3">
+    <h1>Django Survey App</h1>
+    <p class="lead">Great slogan</p>
+    {% if user.is_authenticated %}
+    <p class="lead">
+	<a href="{% url 'survey-add' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Click here to create a survey</a></p>
+    {% else %}
+    <p class="lead">You need to be logged in to create a survey</p>
+	<p class="lead"><a href="{% url 'account_signup' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Click here to register</a></p>
+	<p class="lead"><a href="{% url 'account_login' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Click here to log in</a></p>
+	{% endif %}
+  </main>
+{%endblock content %}

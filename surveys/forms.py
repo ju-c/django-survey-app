@@ -20,10 +20,10 @@ class OptionForm(forms.ModelForm):
         fields = ['choice']
 
 
-class AnswerForm(forms.ModelForm):
+class AnswerForm(forms.Form):
     def __init__(self, *args, **kwargs):
         options = kwargs.pop("options")
-        choices = {(o.pk, o.text) for o in options}
+        choices = {(o.pk, o.choice) for o in options}
         super().__init__(*args, **kwargs)
         option_field = forms.ChoiceField(
                 choices=choices,

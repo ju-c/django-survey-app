@@ -1,17 +1,19 @@
-{% extends '_base.html' %}
+i{% extends '_base.html' %}
+{% load crispy_forms_tags %}
+
 
 {% block title %}{{survey.title}}{% endblock title %}
 
 {% block content %}
 
-<div class="ui center aligned basic very padded segment">
-    <h1 class="ui header">{{ survey.title }}
-        <div class="sub header">You have been invited to take this survey</div>
-    </h1>
-    <form method="post" action="{% url 'survey-start' survey.pk %}" style="display: inline-block;">
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+<main class="px-3">
+    <h1>{{ survey.title }}</h1>
+    <p class="lead">You have been invited to take this survey</p>
+      <form method="post" action="{% url 'survey-start' survey.pk %}" style="display: inline-block;">
         {% csrf_token %}
-        <button type="submit" class="btn btn-success">Start survey
+	<button type="submit" class="btn btn-success">Start survey</button>
     </form>
-</div>
-
+  </main>
 {% endblock %}
+

@@ -1,19 +1,37 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en" class="h-100">
 <head>
 	<meta charset="utf-8">
 	<title>{% block title %}Surveys{% endblock title %}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1,
 shrink-to-fit=no">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<meta name="theme-color" content="#7952b3">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+    </style>
+<link href="{% static 'css/base.css' %}" rel="stylesheet">
 </head>
-<body>
-	<div class="container-sm">
+<body class="d-flex h-100 text-center text-white bg-dark">
+	
 		{% block content %}
 		{% endblock content %}
-	</div>
+	
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-<div align="center">Coded with ❤️ by <a href="http://jul1en.com">Julien Cortesi </a></div></body>
+<footer class="mt-auto text-white-50">
+	<p>Coded with ❤️ by <a href="http://jul1en.com">Julien Cortesi</a></p>
+</footer>
+</div>
+</body>
 </html>
 

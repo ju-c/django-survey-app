@@ -1,16 +1,17 @@
 {% extends '_base.html' %}
+{% load crispy_forms_tags %}
 
-{% block title %}Add Questions{% endblock title %}
+
+{% block title %}Add Options{% endblock title %}
 
 {% block content %}
+
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
 {% include 'navbar.html' %}
-<div class="ui center aligned basic very padded segment">
-    <h1 class="ui header dividing">Add options to question</h1>
-    <div class="ui container left aligned">
-        <h4 class="ui header">
-            Question: {{ question.quest }}
-        </h4>
-        <ul>
+  <main class="px-3">
+    <h1>Question: {{ question.quest }}</h1>
+    <p class="lead">
+<ul>
             {% for option in options %}
             <li>
                 {{ forloop.counter }}) {{option.choice}}
@@ -28,11 +29,9 @@
             <button type="submit" class="btn btn-primary">Add new option</button>
         </form>
         {% if options|length > 0 %}
-        <div class="ui divider"></div>
-        <a href="{% url 'survey-edit' survey.pk %}">
-            <div class="btn btn-success">Done adding options</div>
-        </a>
+        <a href="{% url 'survey-edit' survey.pk %}" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Done adding options</a>
         {% endif %}
-    </div>
-</div>
+</p>
+</main>
 {% endblock %}
+

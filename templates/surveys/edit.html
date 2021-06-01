@@ -1,14 +1,17 @@
 {% extends '_base.html' %}
+{% load crispy_forms_tags %}
+
 
 {% block title %}Edit {{survey.title}}{% endblock title %}
 
 {% block content %}
-{% include 'navbar.html' %}
-<div class="ui center aligned basic very padded segment">
-    <h1 class="ui header dividing">Add questions to {{survey.title}}</h1>
 
-    <div class="ui container left aligned">
-        {% for question in questions %}
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+{% include 'navbar.html' %}
+  <main class="px-3">
+    <h1>Add questions to {{survey.title}}</h1>
+    <p class="lead">
+    {% for question in questions %}
         <div class="ui basic padded segment">
             <h4 class="ui header">
                 Question {{ forloop.counter }} / {{ questions|length }}: {{ question.quest }}
@@ -22,8 +25,7 @@
             </ul>
         </div>
         {% endfor %}
-        <a href="{% url 'survey-question' survey.pk %}">
-            <div class="btn btn-primary">Add a question</div></a>
+        <a href="{% url 'survey-question' survey.pk %}" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Add a question</a>
         {% if questions|length > 0 %}
         <div class="ui divider"></div>
         <form style="display: inline-block;" method="post">
@@ -34,6 +36,7 @@
             <div class="btn btn-light">Back</div>
         </a>
         {% endif %}
-    </div>
-</div>
+</p>
+</main>
 {% endblock %}
+

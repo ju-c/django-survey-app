@@ -194,6 +194,6 @@ def survey_submit(request, survey_pk, sub_pk):
 
 def survey_thanks(request, pk):
     """Survey-taker receives a thank-you message."""
-    survey = get_object_or_404(Survey, pk=pk, is_active=True)
+    survey = get_object_or_404(Survey, pk=pk)
     return render(request, "surveys/thanks.html", {"survey": survey})
 

@@ -1,13 +1,17 @@
 {% extends '_base.html' %}
+{% load crispy_forms_tags %}
 
-{% block title %}Create Survey{% endblock title %}
+
+{% block title %}Create a survey{% endblock title %}
 
 {% block content %}
+
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
 {% include 'navbar.html' %}
-<div class="ui center aligned basic very padded segment">
-    <h1 class="ui header">Create a new survey</h1>
-    <div class="ui container left aligned">
-        <form class="ui form {% if form.errors %}error{% endif %}" method="post" novalidate>
+  <main class="px-3">
+    <h1>Create a survey</h1>
+    <p class="lead">
+    <form {% if form.errors %}error{% endif %}" method="post" novalidate>
             {% csrf_token %}
             {% for field in form %}
             <div class="field {% if field.errors %}error{% endif %}">
@@ -16,8 +20,10 @@
             </div>
             {% endfor %}
             <button type="submit" class="btn btn-success">Create</button>
+    </form>
             <a href="{% url 'survey-list' %}">
                 <div class="btn btn-danger">Cancel</div>
             </a>
-</div>
+</p>
+</main>
 {% endblock %}

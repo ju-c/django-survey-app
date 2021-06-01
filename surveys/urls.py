@@ -14,5 +14,6 @@ urlpatterns = [
         path('surveys/<uuid:survey_pk>/question/<int:question_pk>/option',
             option_create, name='option-create'),
         path('surveys/<uuid:pk>/start/', survey_start, name='survey-start'),
-        path('surveys/<uuid:pk>/submit/<int:sub_pk>/', survey_submit, name='survey-submit'),
+        path('surveys/<uuid:survey_pk>/submit/<int:sub_pk>/', survey_submit, name='survey-submit'),
+        path('surveys/<uuid:pk>/thanks/', survey_thanks, name='survey-thanks'),
 ]

@@ -1,16 +1,10 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="{% url 'survey-list' %}">Survey App</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'survey-add' %}">Add a survey</a>
-      </li>
-      <li class="nav-item">
+  <header class="mb-auto">
+    <div>
+      <h3 class="float-md-start mb-0">Survey App</h3>
+      <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a class="nav-link active" aria-current="page" href="{% url 'survey-list' %}">Home</a>
+	<a class="nav-link" href="{% url 'survey-add' %}">Add a survey</a>
         <a class="nav-link" href="{% url 'account_logout' %}">Log out</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+      </nav>
+    </div>
+  </header>
