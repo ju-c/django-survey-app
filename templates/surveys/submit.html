@@ -17,7 +17,7 @@
         {% for question, form in question_forms %}
 		<div class="ui basic padded segment left aligned">
 		<h4 class="ui header">
-             Question {{ forloop.counter }}: {{ question.quest }}
+             Question {{ forloop.counter }}: {{ question.text }}
         </h4>
                 {% for field in form %}
 		<div>

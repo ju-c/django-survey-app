@@ -25,7 +25,7 @@ class Question(models.Model):
             Survey,
             on_delete=models.CASCADE,
     )
-    quest = models.CharField(max_length=255)
+    text = models.CharField(max_length=255)
 
 # The option model for the multi-choice answer options
 class Option(models.Model):

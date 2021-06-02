@@ -3,7 +3,7 @@ from django.urls import path, include
 
 urlpatterns = [
     # Admin
-    path('admin/', admin.site.urls),
+    path('anyminutenow/', admin.site.urls),
     # User management
     path('accounts/', include('allauth.urls')),
     # Local apps

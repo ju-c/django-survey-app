@@ -21,7 +21,7 @@ class QuestionAdmin(admin.ModelAdmin):
     inlines = [
             OptionInline,
     ]
-    list_display = ("quest",)
+    list_display = ("text",)
 
 
 admin.site.register(Survey, SurveyAdmin)

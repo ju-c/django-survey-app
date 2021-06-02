@@ -16,7 +16,7 @@
 {% for question in questions %}
     <div class="ui basic padded segment left aligned">
         <h4 class="ui header">
-            Question {{ forloop.counter }} / {{ questions|length }}: {{ question.quest }}
+            Question {{ forloop.counter }} / {{ questions|length }}: {{ question.text }}
         </h4>
         <ul>
             {% for option in question.option_set.all %}

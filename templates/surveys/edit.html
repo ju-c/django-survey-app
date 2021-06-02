@@ -1,6 +1,5 @@
 {% extends '_base.html' %}
-{% load crispy_forms_tags %}
-
+  
 
 {% block title %}Edit {{survey.title}}{% endblock title %}
 
@@ -14,7 +13,7 @@
     {% for question in questions %}
         <div class="ui basic padded segment">
             <h4 class="ui header">
-                Question {{ forloop.counter }} / {{ questions|length }}: {{ question.quest }}
+                Question {{ forloop.counter }} / {{ questions|length }}: {{ question.text }}
             </h4>
             <ul>
                 {% for option in question.option_set.all %}
@@ -28,7 +27,7 @@
         <a href="{% url 'survey-question' survey.pk %}" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Add a question</a>
         {% if questions|length > 0 %}
         <div class="ui divider"></div>
-        <form style="display: inline-block;" method="post">
+        <form  method="post">
             {% csrf_token %}
             <button type="submit" class="btn btn-success">Activate survey</button>
         </form>

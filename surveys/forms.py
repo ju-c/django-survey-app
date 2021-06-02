@@ -11,7 +11,7 @@ class SurveyForm(forms.ModelForm):
 class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
-        fields = ['quest']
+        fields = ['text']
 
 
 class OptionForm(forms.ModelForm):

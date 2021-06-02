@@ -16,14 +16,13 @@ class HomePageView(TemplateView):
 @login_required
 def survey_list(request):
     surveys = Survey.objects.filter(creator=request.user).all()
-    return render(request, "surveys/listing.html", {"surveys": surveys})
+    return render(request, 'surveys/listing.html', {'surveys': surveys})
 
 
 @login_required
 def survey_detail(request, pk):
-    """User can view an active survey"""
     try:
-        survey = Survey.objects.prefetch_related("question_set__option_set").get(
+        survey = Survey.objects.prefetch_related('question_set__option_set').get(
             pk=pk, creator=request.user
         )
     except Survey.DoesNotExist:
@@ -31,99 +30,91 @@ def survey_detail(request, pk):
 
     questions = survey.question_set.all()
 
-    # Calculate the results.
-    # This is a naive implementation and it could be optimised to hit the database less.
-    # See here for more info on how you might improve this code: https://docs.djangoproject.com/en/3.1/topics/db/aggregation/
     for question in questions:
-        option_pks = question.option_set.values_list("pk", flat=True)
+        option_pks = question.option_set.values_list('pk', flat=True)
         total_answers = Answer.objects.filter(option_id__in=option_pks).count()
         for option in question.option_set.all():
             num_answers = Answer.objects.filter(option=option).count()
             option.percent = 100.0 * num_answers / total_answers if total_answers else 0
 
     host = request.get_host()
-    public_path = reverse("survey-start", args=[pk])
-    public_url = f"{request.scheme}://{host}{public_path}"
+    public_path = reverse('survey-start', args=[pk])
+    public_url = f'{request.scheme}://{host}{public_path}'
     num_submissions = survey.submission_set.filter(is_complete=True).count()
     return render(
         request,
-        "surveys/survey_detail.html",
+        'surveys/survey_detail.html',
         {
-            "survey": survey,
-            "public_url": public_url,
-            "questions": questions,
-            "num_submissions": num_submissions,
+            'survey': survey,
+            'public_url': public_url,
+            'questions': questions,
+            'num_submissions': num_submissions,
         },
     )
 
 
 @login_required
 def survey_create(request):
-    """User can create a new survey"""
-    if request.method == "POST":
+    if request.method == 'POST':
         form = SurveyForm(request.POST)
         if form.is_valid():
             survey = form.save(commit=False)
             survey.creator = request.user
             survey.save()
-            return redirect("survey-edit", pk=survey.id)
+            return redirect('survey-edit', pk=survey.id)
     else:
         form = SurveyForm()
 
-    return render(request, "surveys/create.html", {"form": form})
+    return render(request, 'surveys/create.html', {'form': form})
 
 
 @login_required
 def survey_delete(request, pk):
-    """User can delete an existing survey"""
     survey = get_object_or_404(Survey, pk=pk, creator=request.user)
-    if request.method == "POST":
+    if request.method == 'POST':
         survey.delete()
 
-    return redirect("survey-list")
+    return redirect('survey-list')
 
 
 @login_required
 def survey_edit(request, pk):
-    """User can add questions to a draft survey, then acitvate the survey"""
     try:
-        survey = Survey.objects.prefetch_related("question_set__option_set").get(
+        survey = Survey.objects.prefetch_related('question_set__option_set').get(
             pk=pk, creator=request.user
         )
     except Survey.DoesNotExist:
         raise Http404()
 
-    if request.method == "POST":
+    if request.method == 'POST':
         survey.save()
-        return redirect("survey-detail", pk=pk)
+        return redirect('survey-detail', pk=pk)
     else:
         questions = survey.question_set.all()
-        return render(request, "surveys/edit.html", {"survey": survey, "questions": questions})
+        return render(request, 'surveys/edit.html', {'survey': survey, 'questions': questions})
 
 
 @login_required
 def question_create(request, pk):
-    """User can add a question to a draft survey"""
     survey = get_object_or_404(Survey, pk=pk, creator=request.user)
-    if request.method == "POST":
+    if request.method == 'POST':
         form = QuestionForm(request.POST)
         if form.is_valid():
             question = form.save(commit=False)
             question.survey = survey
             question.save()
-            return redirect("option-create", survey_pk=pk, question_pk=question.pk)
+            return redirect('option-create', survey_pk=pk, question_pk=question.pk)
     else:
         form = QuestionForm()
 
-    return render(request, "surveys/question.html", {"survey": survey, "form": form})
+    return render(request, 'surveys/question.html', {'survey': survey, 'form': form})
 
 
 @login_required
 def option_create(request, survey_pk, question_pk):
-    """User can add options to a survey question"""
     survey = get_object_or_404(Survey, pk=survey_pk, creator=request.user)
     question = Question.objects.get(pk=question_pk)
-    if request.method == "POST":
+    if request.method == 'POST':
         form = OptionForm(request.POST)
         if form.is_valid():
             option = form.save(commit=False)
@@ -135,25 +126,23 @@ def option_create(request, survey_pk, question_pk):
     options = question.option_set.all()
     return render(
         request,
-        "surveys/options.html",
-        {"survey": survey, "question": question, "options": options, "form": form},
+        'surveys/options.html',
+        {'survey': survey, 'question': question, 'options': options, 'form': form},
     )
 
 
 def survey_start(request, pk):
-    """Survey-taker can start a survey"""
     survey = get_object_or_404(Survey, pk=pk)
     if request.method == 'POST':
         sub = Submission.objects.create(survey=survey)
         return redirect('survey-submit', survey_pk=pk, sub_pk=sub.pk)
 
-    return render(request, "surveys/start.html", {"survey": survey})
+    return render(request, 'surveys/start.html', {'survey': survey})
 
 
 def survey_submit(request, survey_pk, sub_pk):
-    """Survey-taker submit their completed survey."""
     try:
-        survey = Survey.objects.prefetch_related("question_set__option_set").get(
+        survey = Survey.objects.prefetch_related('question_set__option_set').get(
             pk=survey_pk
         )
     except Survey.DoesNotExist:
@@ -166,20 +155,20 @@ def survey_submit(request, survey_pk, sub_pk):
 
     questions = survey.question_set.all()
     options = [q.option_set.all() for q in questions]
-    form_kwargs = {"empty_permitted": False, "options": options}
+    form_kwargs = {'empty_permitted': False, 'options': options}
     AnswerFormSet = formset_factory(AnswerForm, extra=len(questions), formset=BaseAnswerFormSet)
-    if request.method == "POST":
+    if request.method == 'POST':
         formset = AnswerFormSet(request.POST, form_kwargs=form_kwargs)
         if formset.is_valid():
             with transaction.atomic():
                 for form in formset:
                     Answer.objects.create(
-                        option_id=form.cleaned_data["option"], submission_id=sub_pk,
+                        option_id=form.cleaned_data['option'], submission_id=sub_pk,
                     )
 
                 sub.is_complete = True
                 sub.save()
-            return redirect("survey-thanks", pk=survey_pk)
+            return redirect('survey-thanks', pk=survey_pk)
 
     else:
         formset = AnswerFormSet(form_kwargs=form_kwargs)
@@ -187,13 +176,12 @@ def survey_submit(request, survey_pk, sub_pk):
     question_forms = zip(questions, formset)
     return render(
         request,
-        "surveys/submit.html",
-        {"survey": survey, "question_forms": question_forms, "formset": formset},
+        'surveys/submit.html',
+        {'survey': survey, 'question_forms': question_forms, 'formset': formset},
     )
 
 
 def survey_thanks(request, pk):
-    """Survey-taker receives a thank-you message."""
     survey = get_object_or_404(Survey, pk=pk)
-    return render(request, "surveys/thanks.html", {"survey": survey})
+    return render(request, 'surveys/thanks.html', {'survey': survey})
 
