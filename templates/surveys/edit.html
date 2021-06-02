@@ -1,16 +1,14 @@
-{% extends '_base.html' %}
-  
-
-{% block title %}Edit {{survey.title}}{% endblock title %}
+{% extends "_base.html" %}
+{% block title %}Create - Surveys{% endblock %}
 
 {% block content %}
-
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
 {% include 'navbar.html' %}
   <main class="px-3">
     <h1>Add questions to {{survey.title}}</h1>
+
     <p class="lead">
-    {% for question in questions %}
+        {% for question in questions %}
         <div class="ui basic padded segment">
             <h4 class="ui header">
                 Question {{ forloop.counter }} / {{ questions|length }}: {{ question.text }}
@@ -18,24 +16,27 @@
             <ul>
                 {% for option in question.option_set.all %}
                 <li>
-                    {{ forloop.counter }}) {{option.choice}}
+                    {{ forloop.counter }}) {{option.text}}
                 </li>
                 {% endfor %}
             </ul>
         </div>
         {% endfor %}
-        <a href="{% url 'survey-question' survey.pk %}" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Add a question</a>
+        <a href="{% url 'survey-question' survey.pk %}">
+            <div class="ui button">Add a question</div>
+        </a>
         {% if questions|length > 0 %}
         <div class="ui divider"></div>
-        <form  method="post">
+        <form style="display: inline-block;" method="post">
             {% csrf_token %}
-            <button type="submit" class="btn btn-success">Activate survey</button>
+            <button type="submit" class="ui primary button">Activate survey</button>
         </form>
         <a href="{% url 'survey-list' %}">
-            <div class="btn btn-light">Back</div>
+            <div class="ui button">Back</div>
         </a>
         {% endif %}
-</p>
+    </div>
+    </p>
+    </div>
 </main>
 {% endblock %}
-
