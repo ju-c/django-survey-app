@@ -1,5 +1,6 @@
 {% extends '_base.html' %}
 {% load crispy_forms_tags %}
+{% load socialaccount %}
 {% block title %}Survey App - Log In{% endblock title %}
 {% block content %}
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
@@ -14,8 +15,10 @@
 	</form>
     </p>
     <p class="lead">Log in with:</p>
-    <p class="lead"><a href="{% provider_login_url 'github' %}"" class="btn btn-lg btn-secondary fw-bold border-white bg-white">GitHub</a></p>
+    <p class="lead"><a href="{% provider_login_url 'github' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-white">GitHub</a><br>
+        (You can test the app with the following account:<br>
+        email: test@jul1en.com | pass: testpass123)</p>
     <p class="lead">You haven't an account?</p>
         <p class="lead"><a href="{% url 'account_signup' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Click here to register</a></p>
   </main>
-{%endblock content %}
+{% endblock %}
