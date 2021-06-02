@@ -13,6 +13,8 @@
         <button class="btn btn-success" type="submit">Log In</button>
 	</form>
     </p>
+    <p class="lead">Log in with:</p>
+    <p class="lead"><a href="{% provider_login_url 'github' %}"" class="btn btn-lg btn-secondary fw-bold border-white bg-white">GitHub</a></p>
     <p class="lead">You haven't an account?</p>
         <p class="lead"><a href="{% url 'account_signup' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Click here to register</a></p>
   </main>
