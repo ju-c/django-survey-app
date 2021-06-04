@@ -5,15 +5,15 @@
 
   <main class="px-3">
     <h1>Django Survey App</h1>
-    <p class="lead">Great slogan</p>
+    <p class="lead">A simple survey app, written in Django</p>
     {% if user.is_authenticated %}
     <p class="lead">
 	<a href="{% url 'survey-add' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Click here to create a survey</a></p>
-	<a href="{% url 'listing' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Click here to view  your surveys</a></p>
+	<a href="{% url 'survey-list' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-info">Click here to view  your surveys</a></p>
     {% else %}
     <p class="lead">You need to be logged in to create a survey</p>
 	<p class="lead"><a href="{% url 'account_signup' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Click here to register</a></p>
-	<p class="lead"><a href="{% url 'account_login' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Click here to log in</a><br>
+	<p class="lead"><a href="{% url 'account_login' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-info">Click here to log in</a><br>
 	(You can test the app with the following account:<br>
 	email: test@jul1en.com | pass: testpass123)</p>
 	{% endif %}

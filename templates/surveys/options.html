@@ -26,9 +26,10 @@
                 {{ field }}
             </div>
             {% endfor %}
-            <button type="submit" class="btn btn-primary">Add new option</button>
+            <button type="submit" class="btn btn-lg btn-secondary fw-bold border-white bg-primary">Add new option</button>
         </form>
         {% if options|length > 0 %}
+	<br>
         <a href="{% url 'survey-edit' survey.pk %}" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Done adding options</a>
         {% endif %}
 </p>
