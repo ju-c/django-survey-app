@@ -9,6 +9,7 @@
     {% if user.is_authenticated %}
     <p class="lead">
 	<a href="{% url 'survey-add' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Click here to create a survey</a></p>
+	<a href="{% url 'listing' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Click here to view  your surveys</a></p>
     {% else %}
     <p class="lead">You need to be logged in to create a survey</p>
 	<p class="lead"><a href="{% url 'account_signup' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Click here to register</a></p>

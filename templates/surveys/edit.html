@@ -1,26 +1,29 @@
-{% extends "_base.html" %}
-{% block title %}Create - Surveys{% endblock %}
+{% extends '_base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}Edit {{ survey.title }}{% endblock title %}
 
 {% block content %}
+
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
 {% include 'navbar.html' %}
   <main class="px-3">
     <h1>Add questions to {{survey.title}}</h1>
-
     <p class="lead">
-        {% for question in questions %}
-        <div class="ui basic padded segment">
-            <h4 class="ui header">
-                Question {{ forloop.counter }} / {{ questions|length }}: {{ question.text }}
-            </h4>
-            <ul>
-                {% for option in question.option_set.all %}
-                <li>
-                    {{ forloop.counter }}) {{option.text}}
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
+    <ul>
+{% for question in questions %}
+    <div class="ui basic padded segment left aligned">
+        <h4 class="ui header">
+            Question {{ forloop.counter }} / {{ questions|length }}: {{ question.text }}
+        </h4>
+        <ul>
+            {% for option in question.option_set.all %}
+            <li>
+                {{ forloop.counter }}) {{option.choice}}
+            </li>
+            {% endfor %}
+        </ul>
         {% endfor %}
         <a href="{% url 'survey-question' survey.pk %}">
             <div class="ui button">Add a question</div>
@@ -35,8 +38,7 @@
             <div class="ui button">Back</div>
         </a>
         {% endif %}
-    </div>
-    </p>
-    </div>
+</p>
 </main>
 {% endblock %}
+
