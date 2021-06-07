@@ -20,7 +20,7 @@ docker-compose exec web python manage.py migrate
 docker-compose exec web python manage.py createsuperuser
 docker-compose exec web python manage.py runserver
 ```
-####Setup Github OAuth:
+#### Setup Github OAuth:
 To configure a new OAuth application on Github, go to https://github.com/settings/applications/new.`
 Then:  
 - Go to your admin page (yoursite.com/anyminutenow/)  
