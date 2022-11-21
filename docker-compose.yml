@@ -20,7 +20,7 @@ services:
       - "DJANGO_SESSION_COOKIE_SECURE=False"
       - "DJANGO_CSRF_COOKIE_SECURE=False"
   db:
-    image: postgres:14
+    image: postgres:15
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
